@@ -4,19 +4,19 @@ include 'config1.php';
 $message = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $titulo = $_POST['titulo'];
-    $autor = $_POST['autor'];
-    $genero = $_POST['genero'];
-    $anio_publicacion = $_POST['anio_publicacion'];
+    $nombre = $_POST['nombre'];
+    $descripcion = $_POST['descripcion'];
+    $precio = $_POST['precio'];
+    $stock = $_POST['stock'];
 
     try {
-        $sql = "INSERT INTO libros (titulo, autor, genero, anio_publicacion) VALUES (:titulo, :autor, :genero, :anio_publicacion)";
+        $sql = "INSERT INTO libro (nombre, descripcion, precio, stock) VALUES (:nombre, :descripcion, :precio, :stock)";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute(['titulo' => $titulo, 'autor' => $autor, 'genero' => $genero, 'anio_publicacion' => $anio_publicacion]);
+        $stmt->execute(['nombre' => $nombre, 'descripcion' => $descripcion, 'precio' => $precio, 'stock' => $stock]);
 
-        $message = 'libro añadido con éxito!';
+        $message = 'Libro añadido con éxito!';
     } catch (PDOException $e) {
-        $message = 'Error al añadir el libro: ' . $e->getMessage();
+        $message = 'Error al añadir el Libro: ' . $e->getMessage();
     }
 }
 ?>
@@ -26,29 +26,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Añadir libro</title>
+    <title>Añadir Libro</title>
 </head>
 <body>
-<h2>Añadir nuevo libro</h2>
+<h2>Añadir nuevo Libro</h2>
 
 <?php if (!empty($message)): ?>
     <p><?= $message ?></p>
 <?php endif; ?>
 
 <form action="create1.php" method="post">
-    <label for="titulo">titulo:</label>
-    <input type="text" name="titulo" id="titulo" required>
+    <label for="nombre">Nombre:</label>
+    <input type="text" name="nombre" id="nombre" required>
     <br>
-    <label for="autor">Descripción:</label>
-    <textarea name="autor" id="autor"></textarea>
+    <label for="descripcion">Descripción:</label>
+    <textarea name="descripcion" id="descripcion"></textarea>
     <br>
-    <label for="genero">Precio:</label>
-    <input type="text" name="genero" id="genero" required>
+    <label for="precio">Precio:</label>
+    <input type="text" name="precio" id="precio" required>
     <br>
-    <label for="anio_publicacion">Stock:</label>
-    <input type="number" name="anio_publicacion" id="anio_publicacion" required>
+    <label for="stock">Stock:</label>
+    <input type="number" name="stock" id="stock" required>
     <br>
-    <input type="submit" value="Añadir libro">
+    <input type="submit" value="Añadir Libro">
 </form>
 
 </body>
